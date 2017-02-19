@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26127.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsWithVsts.Web", "src\DevOpsWithVsts.Web\DevOpsWithVsts.Web.csproj", "{EEE1701A-D892-4FEE-861A-978AA9135C9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BD6F407D-8BBF-457F-B64F-943084E03392}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B34F054A-B80A-4E79-93DB-67B7D8B5E96C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsWithVsts.Web.Tests", "test\DevOpsWithVsts.Web.Tests\DevOpsWithVsts.Web.Tests.csproj", "{3F08D562-0A90-4FDB-BEC7-47A03A24024C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{BE4A4B15-9C9C-4020-8F5B-B8B24705EFA0}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "DevOpsWithVsts.Deployment", "deployment\DevOpsWithVsts.Deployment\DevOpsWithVsts.Deployment.deployproj", "{B5B51297-1971-4958-965B-73FB5E9C3705}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEE1701A-D892-4FEE-861A-978AA9135C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE1701A-D892-4FEE-861A-978AA9135C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE1701A-D892-4FEE-861A-978AA9135C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE1701A-D892-4FEE-861A-978AA9135C9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F08D562-0A90-4FDB-BEC7-47A03A24024C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F08D562-0A90-4FDB-BEC7-47A03A24024C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F08D562-0A90-4FDB-BEC7-47A03A24024C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F08D562-0A90-4FDB-BEC7-47A03A24024C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5B51297-1971-4958-965B-73FB5E9C3705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B51297-1971-4958-965B-73FB5E9C3705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B51297-1971-4958-965B-73FB5E9C3705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B51297-1971-4958-965B-73FB5E9C3705}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EEE1701A-D892-4FEE-861A-978AA9135C9B} = {BD6F407D-8BBF-457F-B64F-943084E03392}
+		{3F08D562-0A90-4FDB-BEC7-47A03A24024C} = {B34F054A-B80A-4E79-93DB-67B7D8B5E96C}
+		{B5B51297-1971-4958-965B-73FB5E9C3705} = {BE4A4B15-9C9C-4020-8F5B-B8B24705EFA0}
+	EndGlobalSection
+EndGlobal

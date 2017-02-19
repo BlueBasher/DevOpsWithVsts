@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ida_ClientId": {
+            "value": "__ida:ClientId__"
+        },
+        "ida_ClientSecret": {
+            "value": "__ida:ClientSecret__"
+        },
+        "ida_Domain": {
+            "value": "__ida:Domain__"
+        },
+        "ida_TenantId": {
+            "value": "__ida:TenantId__"
+        },
+        "skuName": {
+            "value": "F1"
+        }
+    }
+}
