@@ -28,44 +28,6 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
         await ProcessAzureAlert(personalAccessToken, alertStatus, alertName, alertTimeStamp);
         return req.CreateResponse(HttpStatusCode.OK);
     }
-    else // VSTS ServiceHook
-    {
-        IEnumerable<string> kanbanColumns = null;
-        IEnumerable<string> kanbanColumnDones = null;
-        if (!req.Headers.TryGetValues("Kanban.Column", out kanbanColumns)
-            || !req.Headers.TryGetValues("Kanban.Column.Done", out kanbanColumnDones)
-            || string.IsNullOrEmpty(kanbanColumns.SingleOrDefault())
-            || string.IsNullOrEmpty(kanbanColumnDones.SingleOrDefault()))
-        {
-            log.Info($"Kanban column headers missing");
-        }
-        else
-        {
-            var column = kanbanColumns.Single();
-            var columnDone = bool.Parse(kanbanColumnDones.Single());
-            if (data.eventType == "build.complete")
-            {
-                log.Info("Event: BuildComplete");
-                var buildId = int.Parse(data.resource.id.ToString());
-                var tenantUrl = data.resource.url.ToString();
-                log.Info("Call ProcessBuild " + buildId + " " + tenantUrl + " " + column + " " + columnDone);
-                await ProcessBuild(personalAccessToken, buildId, tenantUrl, column, columnDone, log);
-                return req.CreateResponse(HttpStatusCode.OK);
-            }
-
-            if (data.eventType == "ms.vss-release.deployment-completed-event")
-            {
-                log.Info("Event: ReleaseComplete");
-                var releaseUrl = data.resource.environment.release.url.ToString();
-                var tenantUrl = data.resource.environment.release._links.web.href.ToString();
-                log.Info("Call ProcessRelease " + releaseUrl + " " + tenantUrl + " " + column + " " + columnDone);
-                await ProcessRelease(personalAccessToken, releaseUrl, tenantUrl, column, columnDone, log);
-                return req.CreateResponse(HttpStatusCode.OK);
-            }
-
-            log.Info($"EventType: " + data.eventType);
-        }
-    }
 
     return req.CreateResponse(HttpStatusCode.BadRequest);
 }
@@ -110,29 +72,6 @@ private async static Task ProcessRelease(string personalAccessToken, string rele
         await ProcessBuild(personalAccessToken, buildId, tenantUrl, column, columnDone, log);
     }
     log.Info($"Release completed: " + releaseUrl);
-}
-
-private static async Task UpdateWorkItems(WorkItemTrackingHttpClient workItemTrackingHttpClient, IEnumerable<WorkItem> workItems, string column, bool columnDone, TraceWriter log)
-{
-    foreach (var workItem in workItems)
-    {
-        var fieldId = "/fields/" + workItem.Fields.Single(f => f.Key.EndsWith("Kanban.Column", StringComparison.InvariantCultureIgnoreCase)).Key;
-        log.Info($"UpdateWorkItem {workItem.Id.Value} {column} {columnDone}");
-        var patch = new JsonPatchDocument();
-        patch.Add(new JsonPatchOperation
-        {
-            Operation = Operation.Add,
-            Path = fieldId,
-            Value = column
-        });
-        patch.Add(new JsonPatchOperation
-        {
-            Operation = Operation.Add,
-            Path = fieldId + ".Done",
-            Value = columnDone
-        });
-        await workItemTrackingHttpClient.UpdateWorkItemAsync(patch, workItem.Id.Value);
-    }
 }
 
 private static async Task ProcessAzureAlert(string personalAccessToken, string alertStatus, string alertName, string alertTimeStamp)
